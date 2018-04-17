@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  pp:
+    image: pp
+    build: .
+    links:
+      - rabbit
+    depends_on:
+      - rabbit
+    volumes:
+      - ./src:/app/src
+    ports:
+      - "3000:3000"
+  rabbit:
+    image: rabbitmq
