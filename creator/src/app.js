@@ -5,9 +5,9 @@ const bodyParser = require('koa-bodyparser')
 const app = new Koa()
 const router = new Router()
 const {
-  sendToSubmitter,
-  consumeSubmitter
+  sendToSubmitter
 } = require('./queue.js')
+console.log('Start')
 
 router.get('/test', async ctx => {
   ctx.body = 'Hello World'
@@ -20,15 +20,12 @@ router.post('/job', async ctx => {
   ctx.body = 'ok'
 })
 
-consumeSubmitter((message, acknowledge) => {
-  console.log('I work!', message)
-  acknowledge()
-})
-
 app
   .use(bodyParser())
   .use(router.routes())
   .use(router.allowedMethods())
 
 
-app.listen(3000)
+app.listen(3000, () => {
+  console.log('Listening')
+})

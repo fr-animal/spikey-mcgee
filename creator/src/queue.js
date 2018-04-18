@@ -13,24 +13,10 @@ const createSendToQueue = queueName => async message => {
   ch.sendToQueue(queueName, new Buffer(JSON.stringify(message)))
 }
 
-const createConsumeQueue = queueName => async callback => {
-  const ch = await queue(queueName)
-  ch.consume(queueName, msg => {
-    callback(msg.content.toString(), () => {
-      ch.ack(msg)
-    })
-  })
-}
-
-const consumeSubmitter = createConsumeQueue('SUBMITTER')
-const consumeFabricator = createConsumeQueue('SUBMITTER')
-
 const sendToSubmitter = createSendToQueue('SUBMITTER')
 const sendToFabricator = createSendToQueue('FABRICATOR')
 
 module.exports = {
   sendToSubmitter,
-  sendToFabricator,
-  consumeSubmitter,
-  consumeFabricator
+  sendToFabricator
 }

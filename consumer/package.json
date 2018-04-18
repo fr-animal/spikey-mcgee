@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "start": "nodemon ./src/app.js"
+  },
+  "dependencies": {
+    "amqplib": "^0.5.2",
+    "nodemon": "^1.17.3"
+  }
+}
